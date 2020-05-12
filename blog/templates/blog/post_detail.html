@@ -1,0 +1,57 @@
+{% extends "blog/base.html" %}
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body> 
+{% block content %}
+    {% for post in posts %}
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ post.assigned_employee.profile.image.url }}">
+          <div class="media-body">
+            <div class="article-metadata">
+            <label for="formGroupExampleInput2"><u>Assigned Employee</u></label>
+              <a class="mr-2" href="{% url 'user-posts' post.assigned_employee.username %}">{{ post.assigned_employee }}</a>
+              <label for="formGroupExampleInput2"><u>Date Given</u></label>
+              <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+            </div>
+            <label for="formGroupExampleInput2"><u><b>Work Title</u></b></label>
+            <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.work }}</a></h2>
+                           <label for="formGroupExampleInput2"><u><b>Work Description</u></b></label>
+
+            <p class="article-content">{{ post.description }}</p>
+            <label for="formGroupExampleInput2"><u><b>Work Deadline</u></b></label>
+                        <p class="article-content">{{ post.deadline }}</p>
+                        <label for="formGroupExampleInput2"><u><b>Work Status</u></b></label>
+            <p class="article-content">{{ post.status }}</p>
+
+          </div>
+        </article>
+    {% endfor %}
+        {% if user.is_superuser %}
+          <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="update">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="delete">Delete</a>
+          </div>
+        {% endif %}
+ 
+  </article>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
